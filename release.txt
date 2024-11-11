@@ -1,0 +1,17 @@
+
+docker buildx build --platform linux/amd64 -t syacui-dev:latest . --load
+
+docker run -d -p 8000:8000 --name my-ui-container --env-file .env syacui-dev:latest
+
+az login
+
+az acr login --name acr2acsydev
+
+
+docker tag syacui-dev:latest acr2acsydev.azurecr.io/acsy/ui:latest
+docker tag syacui-dev:latest acr2acsydev.azurecr.io/syacui-dev:0.0.1
+
+
+
+docker push acr2acsydev.azurecr.io/acsy/ui:latest
+docker push acr2acsydev.azurecr.io/syacui-dev:0.0.1
