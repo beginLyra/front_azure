@@ -33,7 +33,7 @@ export const loginUser = async (credentials) => {
 };
 //-----------------------------------------Para ver si la cuenta esta activa
 export const getActivationCode = async (email) => {
-  const response = await fetch(`http://127.0.0.1:8000/user/activationcode/${email}`, {
+  const response = await fetch(`${API_URL}/${email}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -47,7 +47,23 @@ export const getActivationCode = async (email) => {
   
   return response.json(); // Esto asume que el backend retorna el resultado en formato JSON
 };
+//-----------------------------------------Para activar el codigo
+export const activateCode = async (email, code) => {
+  const response = await fetch(`${API_URL}/${email}/${code}/code2`, {
+    method: 'POST',  // Cambiar de GET a POST
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+    },
+    body: JSON.stringify({ email, code })  // Enviar los datos en el cuerpo (opcional, según lo que necesite el backend)
+  });
 
+  if (!response.ok) {
+    throw new Error('Error al obtener el código de activación');
+  }
+
+  return response.json(); // Esto asume que el backend retorna el resultado en formato JSON
+};
 
 
 
