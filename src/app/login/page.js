@@ -3,7 +3,7 @@
 import { useState,useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { loginUser } from '../services/api'
+import { loginUser} from '../services/api'
 import { validatePassword, validateEmail } from '../utils/validations'
 
 export default function Login() {
@@ -31,9 +31,11 @@ export default function Login() {
     try {
    
       const data = await loginUser({ email, password })
+     
+  
       localStorage.setItem('token', data.idToken)
       setIsLogin(true)
-      console.log(data)
+      
       router.push('/')
     } catch (err) {
      

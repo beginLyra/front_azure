@@ -31,16 +31,37 @@ export const loginUser = async (credentials) => {
   }
   return response.json();
 };
+//-----------------------------------------Para ver si la cuenta esta activa
+export const getActivationCode = async (email) => {
+  const response = await fetch(`http://127.0.0.1:8000/user/activationcode/${email}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al obtener el código de activación');
+  }
+  
+  return response.json(); // Esto asume que el backend retorna el resultado en formato JSON
+};
+
+
+
+
+
 
 export const getUserData = async (token) => {
-  console.log("holap")
+ 
   const response = await fetch(`${API_URL}/user`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     },
   });
   if (!response.ok) {
-    console.log(response)
+   
     throw new Error('Error al obtener datos del usuario');
   }
   return response.json();
