@@ -9,9 +9,9 @@ az acr login --name acr2acsydev
 
 
 docker tag syacui-dev:latest acr2acsydev.azurecr.io/acsy/ui:latest
-docker tag syacui-dev:latest acr2acsydev.azurecr.io/syacui-dev:0.0.1
+docker tag syacui-dev:latest acr2acsydev.azurecr.io/syacui-dev:0.0.3
 
 
 
 docker push acr2acsydev.azurecr.io/acsy/ui:latest
-docker push acr2acsydev.azurecr.io/syacui-dev:0.0.1
+docker push acr2acsydev.azurecr.io/syacui-dev:0.0.3

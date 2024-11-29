@@ -33,7 +33,7 @@ export const loginUser = async (credentials) => {
 };
 //-----------------------------------------Para ver si la cuenta esta activa
 export const getActivationCode = async (email) => {
-  const response = await fetch(`${API_URL}/${email}`, {
+  const response = await fetch(`${API_URL}/user/activationcode/${email}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -47,15 +47,15 @@ export const getActivationCode = async (email) => {
   
   return response.json(); // Esto asume que el backend retorna el resultado en formato JSON
 };
-//-----------------------------------------Para activar el codigo
+//-----------------------------------------Para activar el codigo y si no esta envia otro
 export const activateCode = async (email, code) => {
-  const response = await fetch(`${API_URL}/${email}/${code}/code2`, {
+  const response = await fetch(`${API_URL}/user/${email}/${code}/code2`, {
     method: 'POST',  // Cambiar de GET a POST
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'no-cache',
     },
-    body: JSON.stringify({ email, code })  // Enviar los datos en el cuerpo (opcional, según lo que necesite el backend)
+    body: JSON.stringify({ email, code }) 
   });
 
   if (!response.ok) {
@@ -76,6 +76,20 @@ export const getUserData = async (token) => {
       'Authorization': `Bearer ${token}`,
     },
   });
+  if (!response.ok) {
+   
+    throw new Error('Error al obtener datos del usuario');
+  }
+  return response.json();
+};
+
+//----------------------para obtener el tiempo del codigo ---------------
+
+
+export const gettimecode = async (email) => {
+ 
+  const response = await fetch(`${API_URL}/timecode/${email}`)
+
   if (!response.ok) {
    
     throw new Error('Error al obtener datos del usuario');
